@@ -53,8 +53,7 @@ const topics: Topic[] = [
     chip: "coaching",
     prompt: "tell me about coaching",
     lines: [
-      "since my freshman year of high school i've spent over 1,000 hours coaching elite spelling bee competitors",
-      "i built a comprehensive curriculum covering the linguistic patterns of all the main languages that contribute words to the english dictionary",
+      "since my freshman year of high school i've spent over 1,000 hours coaching spelling bee competitors",
       "i'm the first person to coach three consecutive Scripps National Spelling Bee champions (2024 to 2026)",
       "my students have won over $200k in prize money",
       "i've been quoted about my experiences in ESPN, the Washington Post, USA Today, and more",
