@@ -212,6 +212,9 @@ export default function MarbleField() {
 
     const resizeObserver = new ResizeObserver(reset);
     resizeObserver.observe(canvas);
+    const content = document.querySelector<HTMLElement>(".site-content");
+    const contentObserver = content ? new ResizeObserver(readBarriers) : null;
+    contentObserver?.observe(content as HTMLElement);
     window.addEventListener("load", readBarriers);
     reset();
     tick();
@@ -219,6 +222,7 @@ export default function MarbleField() {
     return () => {
       window.cancelAnimationFrame(frame);
       resizeObserver.disconnect();
+      contentObserver?.disconnect();
       window.removeEventListener("load", readBarriers);
     };
   }, []);

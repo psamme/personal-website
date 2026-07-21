@@ -14,31 +14,35 @@ const links = [
 const work = [
   {
     number: "01",
-    title: "Spelling",
+    title: "Coaching",
     role: "coach & curriculum builder",
     detail: "three consecutive national champions",
+    body: "Since my freshman year of high school, I have spent over 1,000 hours coaching elite spelling bee competitors. During my time, I built a comprehensive curriculum covering the linguistic patterns of all of the main languages contributing to words in the English dictionary. I am the first person to coach three consecutive Scripps National Spelling Bee champions (2024-2026), and my students have won over $200k in prize money. I’ve been quoted about my experiences in ESPN, The Washington Post, USA Today, and more. Along the way, I’ve made enough profit to cover my first two years of college :).",
     href: null,
   },
   {
     number: "02",
     title: "Onyma",
     role: "co-founder & ceo",
-    detail: "$10k ARR in month one",
+    detail: "200 users · $15k+ ARR in month one",
+    body: "Earlier this year, I co-founded a word-learning platform used by competitive spelling bee participants. We soft-launched last month, after offering two months of beta access, and were mentioned in AP News, PBS, and more after the 2026 Scripps National Spelling Bee Champion (along with the majority of the competition’s finalists) extensively used our platform. We have the largest spelling and vocabulary practice database on the market, and some of our unique features include AI-powered free-response vocab quizzes for any word list, multiplayer spelling games, and a coaching feature for analyzing mistakes and setting goals for learners. In our first month, we scaled to 200 users and over $15k ARR.",
     href: "https://www.onymalearning.com/",
   },
   {
     number: "03",
-    title: "Optimization",
+    title: "Quarries",
     role: "quantitative analyst",
-    detail: "1M+ material combinations tested",
+    detail: "$10M opportunity · 1M+ combinations",
+    body: "I also built an optimization engine for White Rock Quarries, one of Florida’s largest producers of limestone aggregates. The engine evaluated more than one million product combinations against Florida Department of Transportation specifications and customer requirements for a project with no known solution based on existing material data. Using log-linear interpolation to standardize sieve sizes and an exhaustive grid search, I identified multiple viable blends for an opportunity worth approximately $10 million. I also built a material testing database that allows the model to be rerun instantly as new lab data becomes available.",
     href: null,
   },
   {
     number: "04",
-    title: "Language tools",
-    role: "NLP experiments",
-    detail: "phonetics, rarity & learning",
-    href: null,
+    title: "Currently",
+    role: "building Glyphos",
+    detail: "optimization for structured AI workflows",
+    body: "Currently, I am building Glyphos, an optimization layer that reduces the cost of structured AI workflows while protecting output quality. Most optimization tools tackle one part of the problem (usually input tokens) and only work well for certain workloads. Glyphos optimizes the entire execution: what goes into the model, what comes out, and the routing, caching, retrieval, and processing in between. It adapts to each workflow and only applies an optimization when it beats the existing approach, so the system benefits without being forced into a one-size-fits-all compression strategy. If you’d like to learn more, check out the website and don’t hesitate to reach out.",
+    href: "https://glyphos.psamm.chatgpt.site/",
   },
 ] as const;
 
@@ -102,35 +106,25 @@ export default function Home() {
           <h2 id="work-title">work</h2>
           <div className="work-graph">
             <div className="graph-line" data-marble-barrier aria-hidden="true" />
-            {work.map((item) => {
-              const content = (
-                <>
+            {work.map((item) => (
+              <details className="work-node" data-marble-barrier key={item.number}>
+                <summary className="work-summary">
                   <span className="node-number">{item.number}</span>
                   <span className="node-dot" aria-hidden="true" />
                   <h3>{item.title}</h3>
                   <p>{item.role}</p>
                   <small>{item.detail}</small>
-                </>
-              );
-
-              return item.href ? (
-                <a
-                  className="work-node"
-                  data-marble-barrier
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  key={item.number}
-                  aria-label={`${item.title}: ${item.role}`}
-                >
-                  {content}
-                </a>
-              ) : (
-                <article className="work-node" data-marble-barrier key={item.number}>
-                  {content}
-                </article>
-              );
-            })}
+                </summary>
+                <div className="work-detail">
+                  <p>{item.body}</p>
+                  {item.href && (
+                    <a href={item.href} target="_blank" rel="noreferrer">
+                      {item.title === "Currently" ? "glyphos.psamm.chatgpt.site" : "onymalearning.com"} ↗
+                    </a>
+                  )}
+                </div>
+              </details>
+            ))}
           </div>
         </section>
       </div>
