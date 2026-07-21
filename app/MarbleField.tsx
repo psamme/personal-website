@@ -9,6 +9,7 @@ type Marble = {
   vy: number;
   radius: number;
   color: string;
+  rest: number;
 };
 
 type Barrier = {
@@ -18,7 +19,16 @@ type Barrier = {
   bottom: number;
 };
 
-const palette = ["#8fa88b", "#ac9fc6", "#c4c6c3"];
+const palette = [
+  "#8fa88b", // sage
+  "#ac9fc6", // lavender
+  "#e0a458", // amber
+  "#d97a6c", // coral
+  "#6fa3b8", // steel blue
+  "#7bb08a", // spring green
+  "#e8c15a", // gold
+  "#b58bc4", // orchid
+];
 
 function seededRandom(seed: number) {
   let state = seed;
@@ -71,7 +81,7 @@ export default function MarbleField() {
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
       readBarriers();
 
-      const count = width < 700 ? 34 : width < 1100 ? 52 : 76;
+      const count = width < 700 ? 56 : width < 1100 ? 90 : 130;
       marbles = Array.from({ length: count }, (_, index) => ({
         x: 14 + random() * (width - 28),
         y: reduceMotion ? 14 + random() * (height - 28) : -18 - index * (8 + random() * 8),
@@ -79,7 +89,16 @@ export default function MarbleField() {
         vy: reduceMotion ? 0 : random() * 0.4,
         radius: 2.8 + random() * 3.3,
         color: palette[Math.floor(random() * palette.length)],
+        rest: 0,
       }));
+    };
+
+    const recycle = (marble: Marble) => {
+      marble.x = 14 + random() * (width - 28);
+      marble.y = -18 - random() * 80;
+      marble.vx = (random() - 0.5) * 0.6;
+      marble.vy = random() * 0.4;
+      marble.rest = 0;
     };
 
     const resolveBarrier = (marble: Marble, previousY: number, barrier: Barrier) => {
@@ -195,13 +214,16 @@ export default function MarbleField() {
             marble.vx *= -0.45;
           }
 
-          if (marble.y + marble.radius > height - 2) {
-            marble.y = height - marble.radius - 2;
-            marble.vy *= -0.18;
-            marble.vx *= 0.94;
-          }
-
           for (const barrier of barriers) resolveBarrier(marble, previousY, barrier);
+
+          if (marble.y - marble.radius > height + 8) {
+            recycle(marble);
+          } else if (Math.abs(marble.vx) < 0.08 && Math.abs(marble.vy) < 0.25) {
+            marble.rest += 1;
+            if (marble.rest > 200) recycle(marble);
+          } else {
+            marble.rest = 0;
+          }
         }
         collideMarbles();
       }

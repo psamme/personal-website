@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MarbleField from "./MarbleField";
 
 const links = [
@@ -57,6 +58,9 @@ export default function Home() {
             sam evans<span aria-hidden="true">.</span>
           </a>
           <nav className="socials" aria-label="Social links">
+            <Link href="/messages" className="socials-imessage">
+              imessage
+            </Link>
             {links.map(([label, href]) => (
               <a
                 key={label}
@@ -64,7 +68,7 @@ export default function Home() {
                 target={href.startsWith("mailto:") ? undefined : "_blank"}
                 rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
               >
-                {label}<span aria-hidden="true">↗</span>
+                {label}
               </a>
             ))}
           </nav>
@@ -119,7 +123,7 @@ export default function Home() {
                   <p>{item.body}</p>
                   {item.href && (
                     <a href={item.href} target="_blank" rel="noreferrer">
-                      {item.title === "Currently" ? "glyphos.psamm.chatgpt.site" : "onymalearning.com"} ↗
+                      {item.title === "Currently" ? "glyphos.psamm.chatgpt.site" : "onymalearning.com"}
                     </a>
                   )}
                 </div>
