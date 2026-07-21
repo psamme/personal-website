@@ -12,6 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Sam Evans — Builder",
     description:
       "Sam Evans is an incoming Dartmouth freshman building across language, software, learning, and startups.",
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    },
     openGraph: {
       title: "Sam Evans — Builder",
       description:
