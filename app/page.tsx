@@ -1,86 +1,55 @@
-import type { CSSProperties } from "react";
+import MarbleField from "./MarbleField";
 
 const links = [
   ["linkedin", "https://www.linkedin.com/in/samcevans"],
   ["github", "https://github.com/psamme"],
   ["x", "https://x.com/samvsthewxrld"],
   ["instagram", "https://www.instagram.com/samvsthewrld"],
+  ["onyma", "https://www.onymalearning.com/"],
+  ["monkeytype", "https://monkeytype.com/profile/samevans"],
+  ["spotify", "https://open.spotify.com/"],
   ["email", "mailto:samuel.c.evans.30@dartmouth.edu"],
 ] as const;
 
 const work = [
   {
     number: "01",
-    title: "Onyma",
-    role: "co-founder & ceo",
-    description:
-      "The spelling and vocabulary platform I wish existed when I was competing — from multiplayer practice to AI-powered study tools.",
-    note: "$10k ARR in month one · used by the 2026 Scripps champion",
-    href: "https://www.onymalearning.com/",
+    title: "Spelling",
+    role: "coach & curriculum builder",
+    detail: "three consecutive national champions",
+    href: null,
   },
   {
     number: "02",
-    title: "Spelling",
-    role: "coach & curriculum builder",
-    description:
-      "I turned years of pattern-spotting into the curriculum behind three consecutive national champions — a first in Scripps history.",
-    note: "$200k+ in student winnings · three straight champions",
-    href: null,
+    title: "Onyma",
+    role: "co-founder & ceo",
+    detail: "$10k ARR in month one",
+    href: "https://www.onymalearning.com/",
   },
   {
     number: "03",
     title: "Optimization",
     role: "quantitative analyst",
-    description:
-      "For a $20M rock-blending problem with no known solution, I built an engine that tested more than a million material combinations.",
-    note: "1M+ combinations · Florida DOT specifications",
+    detail: "1M+ material combinations tested",
     href: null,
   },
   {
     number: "04",
     title: "Language tools",
-    role: "ongoing experiments",
-    description:
-      "Phonetic analysis, word-rarity models, and other small systems for finding the hidden structure inside language and learning.",
-    note: "Python · NLP · a few unnamed side quests",
+    role: "NLP experiments",
+    detail: "phonetics, rarity & learning",
     href: null,
   },
 ] as const;
 
-const blocks = [
-  ["sage", "5%", "0%", "32%", "13%", "-3deg", "0.1s", "-34deg"],
-  ["lavender", "39%", "0%", "23%", "20%", "4deg", "0.35s", "26deg"],
-  ["sage", "65%", "0%", "29%", "11%", "-5deg", "0.6s", "-24deg"],
-  ["lavender", "8%", "14%", "21%", "18%", "5deg", "0.8s", "30deg"],
-  ["sage", "31%", "20%", "34%", "12%", "-2deg", "1.05s", "-22deg"],
-  ["lavender", "68%", "12%", "24%", "22%", "6deg", "1.25s", "38deg"],
-  ["sage", "4%", "34%", "34%", "15%", "2deg", "1.5s", "-30deg"],
-  ["lavender", "41%", "34%", "20%", "19%", "-5deg", "1.75s", "25deg"],
-  ["sage", "63%", "36%", "32%", "13%", "4deg", "2s", "-25deg"],
-  ["lavender", "8%", "51%", "24%", "21%", "-4deg", "2.2s", "32deg"],
-  ["sage", "35%", "53%", "27%", "14%", "3deg", "2.45s", "-35deg"],
-  ["lavender", "65%", "52%", "27%", "19%", "-2deg", "2.7s", "27deg"],
-  ["sage", "4%", "69%", "30%", "13%", "5deg", "2.95s", "-24deg"],
-  ["lavender", "37%", "70%", "25%", "17%", "-4deg", "3.2s", "33deg"],
-  ["sage", "66%", "72%", "29%", "12%", "3deg", "3.45s", "-28deg"],
-] as const;
-
-type BlockStyle = CSSProperties & {
-  "--left": string;
-  "--bottom": string;
-  "--width": string;
-  "--height": string;
-  "--rotation": string;
-  "--delay": string;
-  "--spin": string;
-};
-
 export default function Home() {
   return (
-    <main className="portfolio-shell">
-      <section className="content-panel">
+    <main className="site-shell" id="top">
+      <MarbleField />
+
+      <div className="site-content">
         <header className="masthead">
-          <a className="wordmark" href="#top" id="top" aria-label="Sam Evans, home">
+          <a className="wordmark" href="#top" aria-label="Sam Evans, home">
             sam evans<span aria-hidden="true">.</span>
           </a>
           <nav className="socials" aria-label="Social links">
@@ -97,48 +66,57 @@ export default function Home() {
           </nav>
         </header>
 
-        <section className="story" aria-labelledby="story-title">
-          <p className="eyebrow">builder · student · language obsessive</p>
+        <section
+          className="story-panel"
+          data-marble-barrier
+          aria-labelledby="story-title"
+        >
           <h1 id="story-title">
-            I find hidden patterns,<br />
-            then build with them.
+            Hi, I’m Sam, an incoming freshman at Dartmouth.
           </h1>
           <div className="story-copy">
             <p>
-              I grew up fascinated by words. Spelling bees became the outlet, and
-              the little tools I made to study them became something bigger: a
-              love for designing systems that help people learn.
+              I grew up being fascinated with words, and when I realized
+              technology could help me play with language in entirely new ways,
+              I was hooked.
             </p>
             <p>
-              Now I&apos;m a first-year at Dartmouth, building at the edge of
-              language, software, and startups — following the curiosity wherever
-              it goes, whether it&apos;s about words or not.
+              I landed on spelling bees as an outlet for this curiosity, and
+              building naturally became a part of that process for me. I had
+              some success as a competitor, but more when I started coaching
+              younger students in high school. Just earlier this year, I became
+              the first person to coach three Scripps National Spelling Bee
+              champions consecutively.
+            </p>
+            <p>
+              Along the way, I started building little tools for myself and my
+              students, which eventually grew into bigger projects. Somewhere
+              between language, software, and startups, I realized that building
+              is what I want to spend my time doing, and now I’m chasing that
+              curiosity.
             </p>
           </div>
         </section>
 
         <section className="work-section" aria-labelledby="work-title">
-          <div className="section-heading">
-            <h2 id="work-title">Selected work</h2>
-            <span>2022—now</span>
-          </div>
-          <div className="work-grid">
+          <h2 id="work-title">work</h2>
+          <div className="work-graph">
+            <div className="graph-line" data-marble-barrier aria-hidden="true" />
             {work.map((item) => {
               const content = (
                 <>
-                  <div className="work-topline">
-                    <span>{item.number}</span>
-                    <span>{item.role}</span>
-                  </div>
+                  <span className="node-number">{item.number}</span>
+                  <span className="node-dot" aria-hidden="true" />
                   <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <small>{item.note}</small>
+                  <p>{item.role}</p>
+                  <small>{item.detail}</small>
                 </>
               );
 
               return item.href ? (
                 <a
-                  className="work-card"
+                  className="work-node"
+                  data-marble-barrier
                   href={item.href}
                   target="_blank"
                   rel="noreferrer"
@@ -148,44 +126,14 @@ export default function Home() {
                   {content}
                 </a>
               ) : (
-                <article className="work-card" key={item.number}>
+                <article className="work-node" data-marble-barrier key={item.number}>
                   {content}
                 </article>
               );
             })}
           </div>
         </section>
-
-        <footer className="footer-line">
-          <span>currently in Hanover, NH</span>
-          <a href="mailto:samuel.c.evans.30@dartmouth.edu">let&apos;s make something ↗</a>
-        </footer>
-      </section>
-
-      <aside className="block-stage" aria-hidden="true">
-        <div className="stage-label">
-          <span>things in motion</span>
-          <span>↓</span>
-        </div>
-        <div className="fall-zone">
-          {blocks.map(([tone, left, bottom, width, height, rotation, delay, spin], index) => (
-            <span
-              className={`metal-block ${tone}`}
-              key={index}
-              style={{
-                "--left": left,
-                "--bottom": bottom,
-                "--width": width,
-                "--height": height,
-                "--rotation": rotation,
-                "--delay": delay,
-                "--spin": spin,
-              } as BlockStyle}
-            />
-          ))}
-        </div>
-        <p className="stage-note">language / systems / software / learning</p>
-      </aside>
+      </div>
     </main>
   );
 }

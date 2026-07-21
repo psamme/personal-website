@@ -11,11 +11,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Sam Evans — Builder",
     description:
-      "Sam Evans builds at the edge of language, software, learning, and startups.",
+      "Sam Evans is an incoming Dartmouth freshman building across language, software, learning, and startups.",
     openGraph: {
       title: "Sam Evans — Builder",
       description:
-        "Finding hidden patterns, then building with them — across language, software, learning, and startups.",
+        "Words, spelling, software, learning, and the projects that connect them.",
       type: "website",
       images: [{ url: image, width: 1200, height: 630, alt: "Sam Evans — Builder" }],
     },
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: "Sam Evans — Builder",
       description:
-        "Finding hidden patterns, then building with them — across language, software, learning, and startups.",
+        "Words, spelling, software, learning, and the projects that connect them.",
       images: [image],
     },
   };
