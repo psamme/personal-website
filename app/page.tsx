@@ -173,7 +173,8 @@ const IconPlus = (
 const IconWave = (
   <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
     <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-      <path d="M5 10v4M9 7.5v9M13 9v6M17 7v10" />
+      <rect x="9.15" y="3.2" width="5.7" height="10.6" rx="2.85" />
+      <path d="M6 11.2a6 6 0 0 0 12 0M12 17.5v3.2" />
     </g>
   </svg>
 );
@@ -200,18 +201,6 @@ const IconArrowUp = (
 );
 
 /* ---- FaceTime call controls (crisp, SF-style) ---- */
-const IconFtEffects = (
-  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-    <path d="M12 3.2l1.7 4.4 4.4 1.7-4.4 1.7L12 15.4l-1.7-4.4L5.9 9.3l4.4-1.7z" fill="currentColor" />
-    <path d="M18 14.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" />
-  </svg>
-);
-const IconFtSpeaker = (
-  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-    <path d="M4 9.4h3.1L12 5.3v13.4l-4.9-4.1H4z" fill="currentColor" />
-    <path d="M15.4 9.2a4 4 0 0 1 0 5.6M18 6.8a7.4 7.4 0 0 1 0 10.4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-  </svg>
-);
 const IconFtMic = (
   <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
     <rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor" />
@@ -225,12 +214,22 @@ const IconFtVideo = (
     <path d="M15.6 10.6 20.3 7.7c.6-.4 1.4.05 1.4.78v7c0 .73-.8 1.18-1.4.78L15.6 13.4z" fill="currentColor" />
   </svg>
 );
-const IconFtFlip = (
+const IconFtMore = (
   <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-    <path d="M18.6 8.6A7 7 0 0 0 6.3 9.1" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M18.9 4.6v4.2h-4.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M5.4 15.4A7 7 0 0 0 17.7 14.9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M5.1 19.4v-4.2h4.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="5.5" cy="12" r="1.8" fill="currentColor" />
+    <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+    <circle cx="18.5" cy="12" r="1.8" fill="currentColor" />
+  </svg>
+);
+const IconFtX = (
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" />
+  </svg>
+);
+const IconFtCam = (
+  <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+    <path d="M4 8.6h2.7L8 6.9h8l1.3 1.7H20V18H4z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    <circle cx="12" cy="12.8" r="2.9" fill="none" stroke="currentColor" strokeWidth="1.6" />
   </svg>
 );
 
@@ -588,30 +587,28 @@ export default function Messages() {
                   playsInline
                   onEnded={endCall}
                 />
-                {/* SharePlay-style info tab */}
-                <div className="imsg-ft-tab">
-                  <span className="imsg-ft-tab-glyph">{IconFaceTime}</span>
-                  <span className="imsg-ft-tab-text">
-                    <span className="imsg-ft-tab-name">{CONTACT.name}</span>
-                    <span className="imsg-ft-tab-sub">FaceTime · {fmtDuration(ftElapsed)}</span>
-                  </span>
-                  <button type="button" className="imsg-ft-leave" onClick={endCall}>
-                    End
-                  </button>
+                {/* top-left name pill */}
+                <div className="imsg-ft-namepill">
+                  <Avatar className="imsg-ft-namepill-ava" />
+                  <span className="imsg-ft-namepill-name">{CONTACT.name}</span>
+                  <span className="imsg-ft-namepill-chev" aria-hidden="true">{IconChevronRight}</span>
                 </div>
 
-                {/* control row */}
-                <div className="imsg-ft-bar">
-                  <button type="button" className="imsg-ft-round" aria-label="Effects">{IconFtEffects}</button>
-                  <button type="button" className="imsg-ft-round" aria-label="Speaker">{IconFtSpeaker}</button>
-                  <button type="button" className="imsg-ft-round" aria-label="Mute microphone">{IconFtMic}</button>
-                  <button type="button" className="imsg-ft-round" aria-label="Camera">{IconFtVideo}</button>
-                  <button type="button" className="imsg-ft-round" aria-label="Flip camera">{IconFtFlip}</button>
+                {/* top-right circle button */}
+                <button type="button" className="imsg-ft-tr" aria-label="Full screen" />
+
+                {/* right-side vertical control stack */}
+                <div className="imsg-ft-stack">
+                  <button type="button" className="imsg-ft-round green" aria-label="Camera">{IconFtVideo}</button>
+                  <button type="button" className="imsg-ft-round white" aria-label="Mute microphone">{IconFtMic}</button>
+                  <button type="button" className="imsg-ft-round more" aria-label="More">{IconFtMore}</button>
+                  <button type="button" className="imsg-ft-round end" onClick={endCall} aria-label="End call">{IconFtX}</button>
                 </div>
 
-                {/* self-view PiP (your camera) */}
-                <div className="imsg-ft-pip" aria-hidden="true">
+                {/* self-view PiP (your camera), bottom-left */}
+                <div className="imsg-ft-pip">
                   <span className="imsg-ft-pip-label">You</span>
+                  <span className="imsg-ft-pip-flip" aria-hidden="true">{IconFtCam}</span>
                 </div>
               </>
             ) : (

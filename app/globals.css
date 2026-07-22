@@ -478,8 +478,8 @@ a {
   --imsg-bg: #ffffff;
   --imsg-in: #e9e9eb;
   --imsg-in-ink: #000000;
-  --imsg-out-top: #34a4ff;
-  --imsg-out-bot: #0a7cff;
+  --imsg-out-top: #007aff;
+  --imsg-out-bot: #007aff;
   --imsg-header: rgba(248, 248, 250, 0.86);
   --imsg-muted: #8a8a8e;
   --imsg-hair: rgba(0, 0, 0, 0.08);
@@ -1279,122 +1279,127 @@ a {
   justify-content: flex-end;
 }
 
-/* SharePlay-style info tab pinned to the top */
-.imsg-ft-tab {
+/* top-left name pill (mirrors iOS FaceTime) */
+.imsg-ft-namepill {
   position: absolute;
-  top: calc(14px + env(safe-area-inset-top));
-  left: 12px;
-  right: 12px;
+  top: calc(16px + env(safe-area-inset-top));
+  left: 14px;
   z-index: 3;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 8px 8px 10px;
-  border-radius: 20px;
-  background: rgba(30, 30, 32, 0.5);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  box-shadow:
-    inset 0 0.5px 0 rgba(255, 255, 255, 0.14),
-    0 8px 26px rgba(0, 0, 0, 0.4);
+  gap: 7px;
+  padding: 5px 12px 5px 5px;
+  border-radius: 999px;
+  background: rgba(28, 28, 30, 0.5);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.14);
 }
-.imsg-ft-tab-glyph {
+.imsg-ft-namepill-ava {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  overflow: hidden;
   flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.14);
+  object-fit: cover;
+}
+.imsg-ft-namepill-ava img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.imsg-ft-namepill-name {
+  font-size: 15px;
+  font-weight: 600;
   color: #fff;
 }
-.imsg-ft-tab-glyph svg {
-  width: 21px;
+.imsg-ft-namepill-chev {
+  display: flex;
+  color: rgba(255, 255, 255, 0.7);
+}
+.imsg-ft-namepill-chev svg {
+  width: 8px;
   height: auto;
 }
-.imsg-ft-tab-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-  flex: 1;
-  min-width: 0;
-}
-.imsg-ft-tab-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-}
-.imsg-ft-tab-sub {
-  font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.62);
-  font-variant-numeric: tabular-nums;
-}
-.imsg-ft-leave {
-  flex: none;
+
+/* top-right circle button */
+.imsg-ft-tr {
+  position: absolute;
+  top: calc(16px + env(safe-area-inset-top));
+  right: 14px;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
-  padding: 8px 18px;
-  border-radius: 15px;
-  background: #ff453a;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  transition: transform 0.12s ease, background 0.15s ease;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+  transition: transform 0.12s ease;
 }
-.imsg-ft-leave:hover {
-  background: #ff5b52;
-}
-.imsg-ft-leave:active {
-  transform: scale(0.95);
+.imsg-ft-tr:active {
+  transform: scale(0.93);
 }
 
-/* control row under the tab */
-.imsg-ft-bar {
+/* right-side vertical control stack */
+.imsg-ft-stack {
   position: absolute;
-  top: calc(72px + env(safe-area-inset-top));
-  left: 0;
-  right: 0;
+  right: 14px;
+  bottom: calc(22px + env(safe-area-inset-bottom));
   z-index: 3;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 13px;
+  gap: 15px;
 }
 .imsg-ft-round {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
   display: grid;
   place-items: center;
   color: #fff;
-  background: rgba(120, 120, 128, 0.42);
+  background: rgba(120, 120, 128, 0.45);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
-  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.22);
-  transition: background 0.15s ease, transform 0.12s ease;
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.2);
+  transition: filter 0.15s ease, transform 0.12s ease;
 }
 .imsg-ft-round svg {
-  width: 24px;
-  height: 24px;
-}
-.imsg-ft-round:hover {
-  background: rgba(150, 150, 158, 0.55);
+  width: 23px;
+  height: 23px;
 }
 .imsg-ft-round:active {
-  transform: scale(0.93);
+  transform: scale(0.92);
+}
+.imsg-ft-round.green {
+  background: #34c759;
+  box-shadow: 0 4px 14px rgba(52, 199, 89, 0.4);
+}
+.imsg-ft-round.white {
+  background: #fff;
+  color: #1c1c1e;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+}
+.imsg-ft-round.more {
+  background: rgba(58, 58, 64, 0.72);
+}
+.imsg-ft-round.end {
+  background: #ff3b30;
+  box-shadow: 0 6px 18px rgba(255, 59, 48, 0.45);
 }
 
-/* self-view picture-in-picture (lower-right, like the real call) */
+/* self-view picture-in-picture, bottom-left */
 .imsg-ft-pip {
   position: absolute;
   bottom: calc(22px + env(safe-area-inset-bottom));
-  right: 14px;
+  left: 14px;
   z-index: 2;
-  width: 98px;
-  height: 134px;
-  border-radius: 16px;
+  width: 104px;
+  height: 150px;
+  border-radius: 18px;
   overflow: hidden;
   background: linear-gradient(160deg, #3a3a42, #17171b);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
@@ -1404,6 +1409,20 @@ a {
 .imsg-ft-pip-label {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.55);
+}
+.imsg-ft-pip-flip {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .imsg-ft-inner {
   position: relative;
