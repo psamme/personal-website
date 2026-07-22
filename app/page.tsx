@@ -11,11 +11,9 @@ import { useEffect, useRef, useState } from "react";
 const CONTACT = {
   name: "Sam Evans",
   photo: "/sam.jpg",
-  phone: "561-402-2249",
   location: "jacksonville, florida",
   birthday: "february 6, 2008",
   email: "samuel.c.evans.30@dartmouth.edu",
-  textHref: "sms:+15614022249",
   facetimeVideo: "/facetime.mp4", // H.264 transcode of IMG_6454.MOV (universal playback)
 };
 
@@ -94,8 +92,8 @@ const topics: Topic[] = [
       "most optimization tools tackle one part of the problem (usually input tokens) and only work well for certain workloads",
       "glyphos optimizes the entire execution: what goes into the model, what comes out, and the routing, caching, retrieval, and processing in between",
       "it adapts to each workflow and only applies an optimization when it actually beats the existing approach, so you're never forced into a one-size-fits-all compression strategy",
-      "if you want to learn more, check out the site and don't hesitate to reach out",
-      { links: [{ label: "glyphos.psamm.chatgpt.site", href: "https://glyphos.psamm.chatgpt.site/" }] },
+      "if you want to learn more, check out the temporary site and don't hesitate to reach out",
+      { links: [{ label: "temporary site", href: "https://glyphos.psamm.chatgpt.site/" }] },
     ],
   },
   {
@@ -141,11 +139,6 @@ const inbox: Convo[] = [
 const IconMessage = (
   <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
     <path d="M12 3.6c-5.2 0-9.4 3.4-9.4 7.6 0 2.4 1.4 4.6 3.5 6-.2 1-.8 2.2-1.6 3 1.5-.1 3-.7 4.2-1.5 1 .3 2.1.5 3.3.5 5.2 0 9.4-3.4 9.4-7.5S17.2 3.6 12 3.6z" fill="currentColor" />
-  </svg>
-);
-const IconPhone = (
-  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-    <path d="M7 2.7 4.3 3.6c-.9.3-1.4 1.2-1.2 2.1C4.3 12.9 9.4 18 16.6 19.4c.9.2 1.8-.3 2.1-1.2l.9-2.6c.2-.7-.1-1.4-.8-1.7l-2.9-1.2c-.6-.2-1.3 0-1.7.5l-.8 1c-1.8-1-3.3-2.5-4.3-4.3l1-.8c.5-.4.7-1.1.5-1.7L9.4 3.5c-.3-.7-1-1-1.7-.8z" fill="currentColor" />
   </svg>
 );
 const IconVideo = (
@@ -206,6 +199,41 @@ const IconArrowUp = (
   </svg>
 );
 
+/* ---- FaceTime call controls (crisp, SF-style) ---- */
+const IconFtEffects = (
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <path d="M12 3.2l1.7 4.4 4.4 1.7-4.4 1.7L12 15.4l-1.7-4.4L5.9 9.3l4.4-1.7z" fill="currentColor" />
+    <path d="M18 14.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor" />
+  </svg>
+);
+const IconFtSpeaker = (
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <path d="M4 9.4h3.1L12 5.3v13.4l-4.9-4.1H4z" fill="currentColor" />
+    <path d="M15.4 9.2a4 4 0 0 1 0 5.6M18 6.8a7.4 7.4 0 0 1 0 10.4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+  </svg>
+);
+const IconFtMic = (
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor" />
+    <path d="M6 11a6 6 0 0 0 12 0" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M12 17.2V20.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </svg>
+);
+const IconFtVideo = (
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <rect x="2.6" y="6.6" width="13" height="10.8" rx="3" fill="currentColor" />
+    <path d="M15.6 10.6 20.3 7.7c.6-.4 1.4.05 1.4.78v7c0 .73-.8 1.18-1.4.78L15.6 13.4z" fill="currentColor" />
+  </svg>
+);
+const IconFtFlip = (
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <path d="M18.6 8.6A7 7 0 0 0 6.3 9.1" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M18.9 4.6v4.2h-4.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M5.4 15.4A7 7 0 0 0 17.7 14.9" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M5.1 19.4v-4.2h4.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 /* ============================================================================
    Component
    ========================================================================== */
@@ -235,6 +263,7 @@ function Avatar({ className }: { className?: string }) {
 export default function Messages() {
   const [view, setView] = useState<"inbox" | "chat">("chat");
   const [contactOpen, setContactOpen] = useState(false);
+  const [contactClosing, setContactClosing] = useState(false);
   const [facetime, setFacetime] = useState<null | "ringing" | "connected" | "ended">(null);
   const [ftDuration, setFtDuration] = useState("0:00");
   const [ftElapsed, setFtElapsed] = useState(0);
@@ -339,6 +368,16 @@ export default function Messages() {
     } else {
       setFacetime(null);
     }
+  }
+
+  function closeContact() {
+    if (contactClosing) return;
+    setContactClosing(true);
+    setTimeout(() => {
+      if (!mountedRef.current) return;
+      setContactOpen(false);
+      setContactClosing(false);
+    }, 340); // matches the slide-down animation duration
   }
 
   function showToast(msg: string) {
@@ -489,24 +528,25 @@ export default function Messages() {
 
         {/* ---------------- CONTACT CARD ---------------- */}
         {contactOpen && (
-          <div className="imsg-sheet-scrim" onClick={() => setContactOpen(false)}>
+          <div
+            className={`imsg-sheet-scrim ${contactClosing ? "closing" : ""}`}
+            onClick={closeContact}
+          >
             <div className="imsg-sheet" onClick={(e) => e.stopPropagation()}>
-              <button type="button" className="imsg-sheet-close" onClick={() => setContactOpen(false)}>
+              <button type="button" className="imsg-sheet-close" onClick={closeContact}>
                 Done
               </button>
               <Avatar className="imsg-sheet-avatar" />
               <h2 className="imsg-sheet-name">{CONTACT.name}</h2>
               <div className="imsg-sheet-actions">
-                <button type="button" onClick={() => setContactOpen(false)}>
+                <button type="button" onClick={closeContact}>
                   <span className="ic">{IconMessage}</span>message
                 </button>
-                <a href={`tel:${CONTACT.phone.replace(/[^\d+]/g, "")}`}>
-                  <span className="ic">{IconPhone}</span>call
-                </a>
                 <button
                   type="button"
                   onClick={() => {
                     setContactOpen(false);
+                    setContactClosing(false);
                     setFacetime("ringing");
                   }}
                 >
@@ -517,10 +557,6 @@ export default function Messages() {
                 </a>
               </div>
               <dl className="imsg-sheet-info">
-                <div>
-                  <dt>phone</dt>
-                  <dd className="link">{CONTACT.phone}</dd>
-                </div>
                 <div>
                   <dt>from</dt>
                   <dd>{CONTACT.location}</dd>
@@ -552,14 +588,30 @@ export default function Messages() {
                   playsInline
                   onEnded={endCall}
                 />
+                {/* SharePlay-style info tab */}
+                <div className="imsg-ft-tab">
+                  <span className="imsg-ft-tab-glyph">{IconFaceTime}</span>
+                  <span className="imsg-ft-tab-text">
+                    <span className="imsg-ft-tab-name">{CONTACT.name}</span>
+                    <span className="imsg-ft-tab-sub">FaceTime · {fmtDuration(ftElapsed)}</span>
+                  </span>
+                  <button type="button" className="imsg-ft-leave" onClick={endCall}>
+                    End
+                  </button>
+                </div>
+
+                {/* control row */}
+                <div className="imsg-ft-bar">
+                  <button type="button" className="imsg-ft-round" aria-label="Effects">{IconFtEffects}</button>
+                  <button type="button" className="imsg-ft-round" aria-label="Speaker">{IconFtSpeaker}</button>
+                  <button type="button" className="imsg-ft-round" aria-label="Mute microphone">{IconFtMic}</button>
+                  <button type="button" className="imsg-ft-round" aria-label="Camera">{IconFtVideo}</button>
+                  <button type="button" className="imsg-ft-round" aria-label="Flip camera">{IconFtFlip}</button>
+                </div>
+
                 {/* self-view PiP (your camera) */}
                 <div className="imsg-ft-pip" aria-hidden="true">
                   <span className="imsg-ft-pip-label">You</span>
-                </div>
-                {/* top name + live duration */}
-                <div className="imsg-ft-topbar">
-                  <span className="imsg-ft-topname">{CONTACT.name}</span>
-                  <span className="imsg-ft-timer">{fmtDuration(ftElapsed)}</span>
                 </div>
               </>
             ) : (
@@ -581,57 +633,6 @@ export default function Messages() {
                   <p className="imsg-ft-status">Call Ended</p>
                   <p className="imsg-ft-duration">{ftDuration}</p>
                 </>
-              )}
-              {facetime === "connected" && (
-                <div className="imsg-ft-controls">
-                  <button type="button" className="imsg-ft-ctl" aria-label="Effects">
-                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-                      <path
-                        d="M12 3l1.8 4.5L18 9.3l-3.6 2.9L15 17l-3-2.4L9 17l.6-4.8L6 9.3l4.2-1.8z"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="1.6"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <button type="button" className="imsg-ft-ctl" aria-label="Mute microphone">
-                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-                      <path
-                        d="M12 4a2.5 2.5 0 00-2.5 2.5v5a2.5 2.5 0 005 0v-5A2.5 2.5 0 0012 4zM7 11a5 5 0 0010 0M12 16v3"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </button>
-                  <button type="button" className="imsg-ft-ctl" aria-label="Flip camera">
-                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-                      <path
-                        d="M4 8h3l1.4-1.8h7.2L17 8h3v10H4zM12 15.5a3 3 0 100-6 3 3 0 000 6z"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="1.6"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    className="imsg-ft-end"
-                    onClick={endCall}
-                    aria-label="End call"
-                  >
-                    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-                      <path
-                        d="M12 9c-2.5 0-4.9.4-7 1.2-.7.3-1.2 1-1.2 1.7v2.1c0 .5.4.9.9.9.4 0 .8-.3.9-.7l.5-1.8c.1-.4.4-.7.8-.8 1.4-.4 2.8-.6 4.2-.6s2.8.2 4.2.6c.4.1.7.4.8.8l.5 1.8c.1.4.5.7.9.7.5 0 .9-.4.9-.9v-2.1c0-.7-.5-1.4-1.2-1.7-2.1-.8-4.5-1.2-7-1.2z"
-                        fill="#fff"
-                        transform="rotate(135 12 12)"
-                      />
-                    </svg>
-                  </button>
-                </div>
               )}
               {facetime === "ringing" && (
                 <button type="button" className="imsg-ft-end" onClick={endCall} aria-label="End call">
