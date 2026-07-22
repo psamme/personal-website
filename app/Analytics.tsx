@@ -30,6 +30,15 @@ export default function Analytics() {
       autocapture: true, // auto-tracks every click/button, no extra code
       persistence: "localStorage+cookie",
     });
+
+    // Self-tagging: visit the site with ?me=1 once on each of your devices to
+    // mark this browser as internal. It persists, so every future event on this
+    // device carries internal=true — filter it out in PostHog's "internal users".
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("me") === "1") {
+      posthog.register({ internal: true }); // super property → on every event
+      posthog.setPersonProperties({ internal: true }); // person-level property
+    }
   }, []);
   return null;
 }
