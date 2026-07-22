@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { track } from "./Analytics";
 
 /* ============================================================================
    EDIT ME  ·  everything you'd want to change lives in this block
@@ -300,6 +301,7 @@ export default function Messages() {
 
   function ask(topic: Topic) {
     if (busy) return;
+    track("topic_selected", { topic: topic.id });
     push({ side: "out", text: topic.prompt });
     setAsked((a) => [...a, topic.id]);
     void samSay(topic.lines);
@@ -450,13 +452,13 @@ export default function Messages() {
               <button type="button" className="imsg-back" aria-hidden="true" tabIndex={-1}>
                 {IconChevronLeft}
               </button>
-              <button type="button" className="imsg-contact" onClick={() => setContactOpen(true)}>
+              <button type="button" className="imsg-contact" onClick={() => { track("contact_opened"); setContactOpen(true); }}>
                 <Avatar className="imsg-avatar" />
                 <span className="imsg-contact-name">
                   {CONTACT.name} <span className="imsg-contact-chev" aria-hidden="true">{IconChevronRight}</span>
                 </span>
               </button>
-              <button type="button" className="imsg-header-ft" onClick={() => setFacetime("ringing")} aria-label="FaceTime Sam">
+              <button type="button" className="imsg-header-ft" onClick={() => { track("facetime_started", { from: "header" }); setFacetime("ringing"); }} aria-label="FaceTime Sam">
                 {IconFaceTime}
               </button>
             </header>
@@ -544,6 +546,7 @@ export default function Messages() {
                 <button
                   type="button"
                   onClick={() => {
+                    track("facetime_started", { from: "contact_card" });
                     setContactOpen(false);
                     setContactClosing(false);
                     setFacetime("ringing");
