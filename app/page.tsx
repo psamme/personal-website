@@ -12,11 +12,11 @@ const CONTACT = {
   name: "Sam Evans",
   photo: "/sam.jpg",
   phone: "561-402-2249",
-  location: "Jacksonville, Florida",
-  birthday: "February 6, 2008",
+  location: "jacksonville, florida",
+  birthday: "february 6, 2008",
   email: "samuel.c.evans.30@dartmouth.edu",
   textHref: "sms:+15614022249",
-  facetimeVideo: "/facetime.mp4", // H.264 transcode of IMG_6425.MOV (universal playback)
+  facetimeVideo: "/facetime.mp4", // H.264 transcode of IMG_6454.MOV (universal playback)
 };
 
 type LinkItem = { label: string; href: string };
@@ -30,11 +30,12 @@ type Topic = {
 };
 
 const reachLinks: LinkItem[] = [
-  { label: "email", href: "mailto:samuel.c.evans.30@dartmouth.edu" },
-  { label: "linkedin", href: "https://www.linkedin.com/in/samcevans" },
-  { label: "github", href: "https://github.com/psamme" },
   { label: "x", href: "https://x.com/samvsthewxrld" },
+  { label: "linkedin", href: "https://www.linkedin.com/in/samcevans" },
   { label: "instagram", href: "https://www.instagram.com/samvsthewrld" },
+  { label: "github", href: "https://github.com/psamme" },
+  { label: "email", href: "mailto:samuel.c.evans.30@dartmouth.edu" },
+  { label: "monkeytype", href: "https://monkeytype.com/profile/samevans" },
 ];
 
 const intro: Line[] = [
@@ -43,7 +44,8 @@ const intro: Line[] = [
   "i grew up fascinated with words, and when i realized technology could help me play with language in entirely new ways, i was hooked",
   "i landed on spelling bees as an outlet for that curiosity, and building naturally became part of the process for me",
   "had some success competing, but more once i started coaching younger students in high school",
-  "somewhere between language, software, and startups i realized that building is what i want to spend my time doing",
+  "along the way i started creating little tools for myself and my students, which eventually grew into bigger projects",
+  "now, i've realized that building is what i want to spend my time doing, and i'm all in on exploring language, software, and startups",
   "what do you want to know?",
 ];
 
@@ -54,10 +56,9 @@ const topics: Topic[] = [
     prompt: "tell me about coaching",
     lines: [
       "since my freshman year of high school i've spent over 1,000 hours coaching spelling bee competitors",
-      "i'm the first person to coach three consecutive Scripps National Spelling Bee champions (2024 to 2026)",
-      "my students have won over $200k in prize money",
-      "i've been quoted about my experiences in ESPN, the Washington Post, USA Today, and more",
-      "and along the way i made enough profit to cover my first two years of college :)",
+      "i'm the first person to coach three consecutive scripps national spelling bee champions (2024 to 2026)",
+      "i've been quoted about my experiences in espn, the washington post, usa today, and more",
+      "and along the way i made enough to cover my first two years of college :)",
     ],
   },
   {
@@ -67,10 +68,9 @@ const topics: Topic[] = [
     lines: [
       "earlier this year i co-founded a word-learning platform used by competitive spelling bee participants",
       "we soft-launched last month, after offering two months of beta access",
-      "we got mentioned in AP News, PBS, and more after the 2026 Scripps National champion (along with most of the finalists) used our platform extensively",
-      "we have the largest spelling and vocabulary practice database on the market",
-      "some of our features: AI free-response vocab quizzes for any word list, multiplayer spelling games, and a coaching tool for analyzing mistakes and setting goals",
-      "in our first month we scaled to 200 users and over $15k ARR",
+      "we got mentioned in ap news, pbs, and more after the 2026 scripps national champion (along with most of the finalists) used our platform extensively",
+      "we are the most comprehensive, most efficient, and most engaging spelling and vocabulary practice platform to date",
+      "in our first month we scaled to 200 users and over $15k arr",
       { links: [{ label: "onymalearning.com", href: "https://www.onymalearning.com/" }] },
     ],
   },
@@ -79,8 +79,8 @@ const topics: Topic[] = [
     chip: "data work",
     prompt: "tell me about the data work",
     lines: [
-      "i built an optimization engine for White Rock Quarries, one of florida's largest producers of limestone aggregates",
-      "it evaluated more than one million product combinations against Florida DOT specifications and customer requirements, for a project with no known solution based on existing material data",
+      "i built an optimization engine for white rock quarries, one of florida's largest producers of limestone aggregates",
+      "it evaluated more than one million product combinations against florida dot specifications and customer requirements, for a project with no known solution based on previous company efforts",
       "using log-linear interpolation to standardize sieve sizes and an exhaustive grid search, i found multiple viable blends for an opportunity worth around $10 million",
       "i also built a material testing database so the model can rerun instantly as new lab data comes in",
     ],
@@ -90,9 +90,9 @@ const topics: Topic[] = [
     chip: "what you're building now",
     prompt: "what are you building now?",
     lines: [
-      "right now i'm building Glyphos, an optimization layer that reduces the cost of structured AI workflows while protecting output quality",
+      "right now i'm building glyphos, an optimization layer that reduces the cost of structured ai workflows while protecting output quality",
       "most optimization tools tackle one part of the problem (usually input tokens) and only work well for certain workloads",
-      "Glyphos optimizes the entire execution: what goes into the model, what comes out, and the routing, caching, retrieval, and processing in between",
+      "glyphos optimizes the entire execution: what goes into the model, what comes out, and the routing, caching, retrieval, and processing in between",
       "it adapts to each workflow and only applies an optimization when it actually beats the existing approach, so you're never forced into a one-size-fits-all compression strategy",
       "if you want to learn more, check out the site and don't hesitate to reach out",
       { links: [{ label: "glyphos.psamm.chatgpt.site", href: "https://glyphos.psamm.chatgpt.site/" }] },
@@ -237,6 +237,7 @@ export default function Messages() {
   const [contactOpen, setContactOpen] = useState(false);
   const [facetime, setFacetime] = useState<null | "ringing" | "connected" | "ended">(null);
   const [ftDuration, setFtDuration] = useState("0:00");
+  const [ftElapsed, setFtElapsed] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
 
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -310,12 +311,16 @@ export default function Messages() {
   useEffect(() => {
     if (facetime === "connected") {
       ftStartRef.current = Date.now();
+      setFtElapsed(0);
       const v = ftVideoRef.current;
-      if (v)
-        v.play().catch(() => {
-          v.muted = true;
-          void v.play();
-        });
+      if (v) {
+        v.muted = true;
+        void v.play().catch(() => {});
+      }
+      const tick = setInterval(() => {
+        if (mountedRef.current) setFtElapsed(Math.round((Date.now() - ftStartRef.current) / 1000));
+      }, 1000);
+      return () => clearInterval(tick);
     }
     if (facetime === "ended") {
       const t = setTimeout(() => mountedRef.current && setFacetime(null), 2200);
@@ -323,10 +328,13 @@ export default function Messages() {
     }
   }, [facetime]);
 
+  const fmtDuration = (secs: number) =>
+    `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+
   function endCall() {
     if (facetime === "connected") {
       const secs = Math.max(1, Math.round((Date.now() - ftStartRef.current) / 1000));
-      setFtDuration(`${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`);
+      setFtDuration(fmtDuration(secs));
       setFacetime("ended");
     } else {
       setFacetime(null);
@@ -462,9 +470,6 @@ export default function Messages() {
                       {t.chip}
                     </button>
                   ))}
-                  <button type="button" className="imsg-chip ghost" onClick={() => setFacetime("ringing")}>
-                    facetime me
-                  </button>
                   {remaining.length === 0 && (
                     <span className="imsg-chip-note">that&apos;s the whole story. tap the contact photo up top for more</span>
                   )}
@@ -537,14 +542,26 @@ export default function Messages() {
         {facetime && (
           <div className={`imsg-ft ${facetime}`}>
             {facetime === "connected" ? (
-              <video
-                ref={ftVideoRef}
-                className="imsg-ft-video"
-                src={CONTACT.facetimeVideo}
-                autoPlay
-                playsInline
-                onEnded={endCall}
-              />
+              <>
+                <video
+                  ref={ftVideoRef}
+                  className="imsg-ft-video"
+                  src={CONTACT.facetimeVideo}
+                  autoPlay
+                  muted
+                  playsInline
+                  onEnded={endCall}
+                />
+                {/* self-view PiP (your camera) */}
+                <div className="imsg-ft-pip" aria-hidden="true">
+                  <span className="imsg-ft-pip-label">You</span>
+                </div>
+                {/* top name + live duration */}
+                <div className="imsg-ft-topbar">
+                  <span className="imsg-ft-topname">{CONTACT.name}</span>
+                  <span className="imsg-ft-timer">{fmtDuration(ftElapsed)}</span>
+                </div>
+              </>
             ) : (
               <div className="imsg-ft-bg" style={{ backgroundImage: `url(${CONTACT.photo})` }} />
             )}
@@ -554,7 +571,7 @@ export default function Messages() {
                 <>
                   <Avatar className="imsg-ft-avatar" />
                   <h2>{CONTACT.name}</h2>
-                  <p className="imsg-ft-status">FaceTime</p>
+                  <p className="imsg-ft-status">Connecting&hellip;</p>
                 </>
               )}
               {facetime === "ended" && (
@@ -565,7 +582,58 @@ export default function Messages() {
                   <p className="imsg-ft-duration">{ftDuration}</p>
                 </>
               )}
-              {facetime !== "ended" && (
+              {facetime === "connected" && (
+                <div className="imsg-ft-controls">
+                  <button type="button" className="imsg-ft-ctl" aria-label="Effects">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                      <path
+                        d="M12 3l1.8 4.5L18 9.3l-3.6 2.9L15 17l-3-2.4L9 17l.6-4.8L6 9.3l4.2-1.8z"
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth="1.6"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button type="button" className="imsg-ft-ctl" aria-label="Mute microphone">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                      <path
+                        d="M12 4a2.5 2.5 0 00-2.5 2.5v5a2.5 2.5 0 005 0v-5A2.5 2.5 0 0012 4zM7 11a5 5 0 0010 0M12 16v3"
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </button>
+                  <button type="button" className="imsg-ft-ctl" aria-label="Flip camera">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                      <path
+                        d="M4 8h3l1.4-1.8h7.2L17 8h3v10H4zM12 15.5a3 3 0 100-6 3 3 0 000 6z"
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth="1.6"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    className="imsg-ft-end"
+                    onClick={endCall}
+                    aria-label="End call"
+                  >
+                    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                      <path
+                        d="M12 9c-2.5 0-4.9.4-7 1.2-.7.3-1.2 1-1.2 1.7v2.1c0 .5.4.9.9.9.4 0 .8-.3.9-.7l.5-1.8c.1-.4.4-.7.8-.8 1.4-.4 2.8-.6 4.2-.6s2.8.2 4.2.6c.4.1.7.4.8.8l.5 1.8c.1.4.5.7.9.7.5 0 .9-.4.9-.9v-2.1c0-.7-.5-1.4-1.2-1.7-2.1-.8-4.5-1.2-7-1.2z"
+                        fill="#fff"
+                        transform="rotate(135 12 12)"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              )}
+              {facetime === "ringing" && (
                 <button type="button" className="imsg-ft-end" onClick={endCall} aria-label="End call">
                   <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
                     <path
