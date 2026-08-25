@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Sam Evans",
       description:
-        "Words, spelling, software, learning, and the projects that connect them.",
+        "words - software - startups",
       type: "website",
       images: [{ url: image, width: 1200, height: 630, alt: "Sam Evans" }],
     },
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: "Sam Evans",
       description:
-        "Words, spelling, software, learning, and the projects that connect them.",
+        "words - software - startups",
       images: [image],
     },
   };

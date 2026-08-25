@@ -395,7 +395,6 @@ export default function Messages() {
   return (
     <main className="imsg-page">
       <aside className="imsg-aside">
-        <h1 className="imsg-aside-title">my story, as a text thread</h1>
         <p className="imsg-aside-body">
           tap a suggestion to hear about what i&apos;ve been working on. give the contact photo or
           facetime a try too.
