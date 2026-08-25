@@ -57,7 +57,7 @@ const topics: Topic[] = [
       "since my freshman year of high school i've spent over 1,000 hours coaching spelling bee competitors",
       "i'm the first person to coach three consecutive scripps national spelling bee champions (2024 to 2026)",
       "i've been quoted about my experiences in espn, the washington post, usa today, and more",
-      "and along the way i made enough to cover my first two years of college :)",
+      "coaching is what first got me into entrepreneurship",
     ],
   },
   {
@@ -89,12 +89,7 @@ const topics: Topic[] = [
     chip: "what you're building now",
     prompt: "what are you building now?",
     lines: [
-      "right now i'm building glyphos, an optimization layer that reduces the cost of structured ai workflows while protecting output quality",
-      "most optimization tools tackle one part of the problem (usually input tokens) and only work well for certain workloads",
-      "glyphos optimizes the entire execution: what goes into the model, what comes out, and the routing, caching, retrieval, and processing in between",
-      "it adapts to each workflow and only applies an optimization when it actually beats the existing approach, so you're never forced into a one-size-fits-all compression strategy",
-      "if you want to learn more, check out the temporary site and don't hesitate to reach out",
-      { links: [{ label: "temporary site", href: "https://glyphos.psamm.chatgpt.site/" }] },
+      "honestly i'm still figuring out what my next chapter looks like. i'm looking to either join a team or start my own, and tackle my next big project before the year is over",
     ],
   },
   {
