@@ -10,22 +10,22 @@ export async function generateMetadata(): Promise<Metadata> {
   const image = `${protocol}://${host}/og.png`;
 
   return {
-    title: "Sam Evans — Builder",
+    title: "Sam Evans",
     description:
       "Sam Evans is an incoming Dartmouth freshman building across language, software, learning, and startups.",
     icons: {
       icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     },
     openGraph: {
-      title: "Sam Evans — Builder",
+      title: "Sam Evans",
       description:
         "Words, spelling, software, learning, and the projects that connect them.",
       type: "website",
-      images: [{ url: image, width: 1200, height: 630, alt: "Sam Evans — Builder" }],
+      images: [{ url: image, width: 1200, height: 630, alt: "Sam Evans" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Sam Evans — Builder",
+      title: "Sam Evans",
       description:
         "Words, spelling, software, learning, and the projects that connect them.",
       images: [image],
