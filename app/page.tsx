@@ -65,8 +65,7 @@ const topics: Topic[] = [
     chip: "onyma",
     prompt: "what's onyma?",
     lines: [
-      "earlier this year i co-founded a word-learning platform used by competitive spelling bee participants",
-      "we soft-launched last month, after offering two months of beta access",
+      "in may 2026 i co-built a word learning platform used by competitive spelling bee participants",
       "we got mentioned in ap news, pbs, and more after the 2026 scripps national champion (along with most of the finalists) used our platform extensively",
       "we are the most comprehensive, most efficient, and most engaging spelling and vocabulary practice platform to date",
       "in our first month we scaled to 200 users and over $15k arr",
