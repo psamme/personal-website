@@ -89,6 +89,9 @@ const topics: Topic[] = [
     chip: "what you're building now",
     prompt: "what are you building now?",
     lines: [
+      "earlier this summer, i explored whether language models could learn a better way to communicate than tokens, first through discrete glyph programs and later through learned links between their internal representations",
+      "check out what i found below",
+      { links: [{ label: "glyphos-research.vercel.app", href: "https://glyphos-research.vercel.app/" }] },
       "honestly i'm still figuring out what my next chapter looks like. i'm looking to either join a team or start my own, and tackle my next big project before the year is over",
     ],
   },
