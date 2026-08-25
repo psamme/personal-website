@@ -92,6 +92,8 @@ const topics: Topic[] = [
       "earlier this summer, i explored whether language models could learn a better way to communicate than tokens, first through discrete glyph programs and later through learned links between their internal representations",
       "check out what i found below",
       { links: [{ label: "glyphos-research.vercel.app", href: "https://glyphos-research.vercel.app/" }] },
+      "i also worked on trimference, a scanner that catches wasteful llm patterns in your codebase before they ship ie. runaway agent loops, repeated embeddings, huge contexts, and missing output caps",
+      { links: [{ label: "trimference", href: "https://github.com/psamme/trimference" }] },
       "honestly i'm still figuring out what my next chapter looks like. i'm looking to either join a team or start my own, and tackle my next big project before the year is over",
     ],
   },
