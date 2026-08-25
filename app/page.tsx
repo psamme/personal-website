@@ -98,6 +98,8 @@ const topics: Topic[] = [
       "i actually built this just a few days before openai released the apple messages plugin, but some people have found that having a more private, local option like chatoyant is better",
       "so, if u feel the same, try it out and lmk what you think",
       { links: [{ label: "chatoyant", href: "https://github.com/psamme/chatoyant" }] },
+      "another thing i've had a lot of fun experimenting with is the meta ray-ban display glasses",
+      "i have a few projects in the works, and i think wearable tech has a ton of untapped potential that i'd love to explore",
       "honestly i'm still figuring out what my next chapter looks like. i'm looking to either join a team or start my own, and tackle my next big project before the year is over",
     ],
   },
